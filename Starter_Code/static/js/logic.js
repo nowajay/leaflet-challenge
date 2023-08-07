@@ -2,13 +2,13 @@
 let URL = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson'
 
 
-// Loop through and log data.
+// Loop and log data.
 d3.json(URL).then(function(data){
     createFeatures(data.features),
     console.log(data)
 });
 
-// Function for color of circles based on their depth
+// Function for color of circles 
 function depthColor(depth) {
     if (depth >= 90) return "#ff3300";
     else if (depth >= 70) return "#ff6600";
@@ -21,7 +21,7 @@ function depthColor(depth) {
 // Pull data into functions
 function createFeatures (earthquakeInfo) {
 
-    //function for pop ups with added info
+    //function for pop ups 
     function onEachFeature(feature, layer) {
         layer.bindPopup(`<h3>${feature.properties.place}</h3><hr><p>${new Date(feature.properties.time)}</p>`);
       };
@@ -39,7 +39,7 @@ function createFeatures (earthquakeInfo) {
         return L.circleMarker(latlng,options);
     }
 
-    //Geojson layer with markers for each marker made above.
+    //Geojson layer with markers 
     let earthquakes = L.geoJson(earthquakeInfo, {
         onEachFeature: onEachFeature, pointToLayer: createCircleMarker
     });
